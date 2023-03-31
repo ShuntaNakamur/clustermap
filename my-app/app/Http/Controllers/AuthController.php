@@ -34,7 +34,7 @@ class AuthController extends Controller
                 'tfa_token' => (string)$random_password,
                 'tfa_expiration' => now()->addMinutes(10)
         ]);
-        print($request->email);
+        $email=$request->email;
         \Mail::to($request->email)->send(new TwoFactorAuthPassword($random_password));
 
 
@@ -42,7 +42,7 @@ class AuthController extends Controller
 
 
         return response()->json([
-
+                'email'=>$email,
                 'result'=>$user->first()->id
         ]);
     }
@@ -61,7 +61,6 @@ class AuthController extends Controller
 
         }
         return response()->json([
-
             'result' => $result,
         ]);
 

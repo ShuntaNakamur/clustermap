@@ -1,4 +1,4 @@
-２段階認証のパスワードをご送付します。<br>
+Here is your code from cluster<br>
 
-【パスワード】
-{{ $tfa_token }}
+【code】
+{{ $code }}

@@ -20,17 +20,18 @@ class TwoFactorAuthPassword extends Mailable
      *
      * @return void
      */
-    public function __construct($tfa_token)
+    public function __construct($code, $email)
     {
-        $this->tfa_token = $tfa_token;
+        $this->code = $code;
+        $this->email = $email;
     }
 
 
     public function build()
     {
-        return $this->from('test@example.com', 'サイト名')
+        return $this->to($this->email)
             ->subject('２段階認証のパスワード')
             ->view('two_factor_auth.password')
-            ->with('tfa_token', $this->tfa_token);
+            ->with('code', $this->code);
     }
 }

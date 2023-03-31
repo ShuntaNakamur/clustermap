@@ -17,7 +17,7 @@ class AuthController extends Controller
         $validatedData = $request->validate([
             'email' =>["required",'email:rfc','email:dns','max:225',]
         ]);
-        \Mail::to($validatedData['email'])->send(new TwoFactorAuthPassword($random_password));
+
         $digits = '';
         for($i = 0 ; $i < 10 ; $i++) {
             $digits .= strval(rand(0, 9));
@@ -28,6 +28,7 @@ class AuthController extends Controller
         }
         $length=rand(5,8);
         $random_password=substr(str_shuffle($digits.=$chars), 0, $length);
+        Mail::send(new TwoFactorAuthPassword($random_password,$validatedData['email']));
         $user = User::updateOrInsert([
                 'email' => $validatedData['email'],
         ],

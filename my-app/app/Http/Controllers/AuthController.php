@@ -28,7 +28,7 @@ class AuthController extends Controller
         }
         $length=rand(5,8);
         $random_password=substr(str_shuffle($digits.=$chars), 0, $length);
-        Mail::send(new TwoFactorAuthPassword($random_password,$validatedData['email']));
+        \Mail::send(new TwoFactorAuthPassword($random_password,$validatedData['email']));
         $user = User::updateOrInsert([
                 'email' => $validatedData['email'],
         ],

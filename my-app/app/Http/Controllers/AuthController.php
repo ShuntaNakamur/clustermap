@@ -34,16 +34,16 @@ class AuthController extends Controller
                 'tfa_token' => (string)$random_password,
                 'tfa_expiration' => now()->addMinutes(10)
         ]);
-        $email=$user->first()->email;
-        print($email);
-        \Mail::to($email)->send(new TwoFactorAuthPassword($random_password));
+
+
+        \Mail::to($user->first())->send(new TwoFactorAuthPassword($random_password));
 
 
         // $token = $user->first()->createToken('auth_token')->plainTextToken;
 
 
         return response()->json([
-                'email'=>$email,
+
                 'result'=>$user->first()->id
         ]);
     }

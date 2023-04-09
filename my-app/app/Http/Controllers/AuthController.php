@@ -52,17 +52,18 @@ class AuthController extends Controller
 
 
     public function validateUser(Request $request) {  // ２段階目の認証
+        $result=false;
         $user = User::find($request->id);
-
-        $result = false;
         $expiration = new Carbon($user->tfa_expiration);
-        if($user->tfa_token  === $request->token && $expiration > now()) {
-
-
+        if($user->tfa_token  != $request->token) {
+            $result = "wrong";
+        }else if($expiration < now()){
+           $result = "expired";
+        }else{
             $user->save();
             $result =  $user->createToken('auth_token')->plainTextToken;;
-
         }
+
         return response()->json([
             'result' => $result,
         ]);

@@ -71,6 +71,10 @@ class AuthController extends Controller
 
 
     }
+    public function updateName(Request $request){
+        $user=$request->user();
+        $user->update(['name' => $request->name]);
+    }
 
     public function updateUser(Request $request){
         $user=$request->user();

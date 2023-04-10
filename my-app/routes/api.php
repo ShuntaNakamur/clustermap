@@ -31,6 +31,8 @@ Route::get('/get_user',[AuthController::class,'getUser']);
 
 Route::post('/update_user',[AuthController::class,'updateUser'])->middleware('auth:sanctum');
 
+Route::post('/update_name',[AuthController::class,'updateName'])->middleware('auth:sanctum');
+
 Route::post('/delete_users',[AuthController::class,'delete_users'])->middleware('auth:sanctum');
 
 Route::get('/get_image',[AuthController::class,'get_image']);
